@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	metamod "github.com/et-nik/metamod-go"
+	"github.com/et-nik/metamod-go/engine"
 	"github.com/et-nik/metamod-go/vector"
 	"math"
 	"strconv"
@@ -16,8 +17,8 @@ func init() {
 	err := metamod.SetPluginInfo(&metamod.PluginInfo{
 		InterfaceVersion: metamod.MetaInterfaceVersion,
 		Name:             "Metamod Go Example",
-		Version:          "1.0",
-		Date:             "2024-11-19",
+		Version:          Version,
+		Date:             BuildDate,
 		Author:           "KNiK",
 		Url:              "https://github.com/et-nik/metamod-go-example",
 		LogTag:           "MetamodGoExample",
@@ -178,7 +179,7 @@ func MetaAttach(_ int) int {
 		start := entVars.Origin().Add(entVars.ViewOfs())
 		end := start.Add(AnglesToForward(entVars.VAngle()).Mul(float32(distance)))
 
-		traceResult := engineFuncs.TraceLine(entVars.Origin(), end, metamod.TraceDontIgnoreMonsters, edict)
+		traceResult := engineFuncs.TraceLine(entVars.Origin(), end, engine.TraceDontIgnoreMonsters, edict)
 
 		fmt.Println()
 		fmt.Println("=====================================")
