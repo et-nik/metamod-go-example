@@ -20,11 +20,14 @@ jobs:
       - name: Set BUILD_TIME env
         run: echo BUILD_TIME=$(date --iso-8601=seconds) >> ${GITHUB_ENV}
 
-      - uses: wangyoucao577/go-release-action@v1.52
-        with:
-          pre_command: |
+      - name: Install gcc multilib
+        run: |
+            sudo dpkg --add-architecture i386
             sudo apt-get -y update
             sudo apt-get install -y gcc-multilib
+
+      - uses: wangyoucao577/go-release-action@v1.52
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
