@@ -10,11 +10,8 @@ jobs:
       matrix:
         goos: ["linux"]
         goarch: ["386"]
-        exclude:
-          - goarch: "mips"
-            goos: windows
-          - goarch: "mips64"
-            goos: windows
+    env:
+      CGO_ENABLED: 1
     steps:
       - uses: actions/checkout@v2
 
