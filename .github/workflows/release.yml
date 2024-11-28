@@ -13,6 +13,8 @@ jobs:
         goarch: ["386"]
     env:
       CGO_ENABLED: 1
+      GOOS: ${{ matrix.goos }}
+      GOARCH: ${{ matrix.goarch }}
     steps:
       - uses: actions/checkout@v2
 
@@ -41,7 +43,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: example.so
-          asset_name: example_i386.so
+          file: example_${{ matrix.goarch }}.so
+          asset_name: example_${{ matrix.goarch }}.so
           tag: ${{ github.ref }}
           overwrite: true
